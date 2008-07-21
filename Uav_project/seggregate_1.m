@@ -1,5 +1,5 @@
 % Linear Model for uav
-
+% Modifying for Friedlands paper(unedited)
 % Modifications to read accelorometer continuosly; GPS gets read every
 % second
 clear all;
