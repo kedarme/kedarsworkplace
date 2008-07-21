@@ -70,18 +70,6 @@ for i = 1:ns-1 % Start the loop
     wphi = U(3,1);
 
 
-    % Calculate A matrix
-    A = [ 0, 0, 0, cos(theta)*cos(phi), sin(psi)*sin(theta)*cos(phi)-cos(psi)*sin(phi), -cos(psi)*sin(theta)*cos(phi)+sin(psi)*sin(phi), (cos(psi)*sin(theta)*cos(phi)+sin(psi)*sin(phi))*Vy+(sin(psi)*sin(theta)*cos(phi)+cos(psi)*sin(phi))*Vz, -sin(theta)*cos(phi)*Vx+sin(psi)*cos(theta)*cos(phi)*Vy-cos(psi)*cos(theta)*cos(phi)*Vz, -cos(theta)*sin(phi)*Vx+(sin(psi)*sin(theta)*sin(phi)-cos(psi)*cos(phi))*Vy+(cos(psi)*sin(theta)*sin(phi)+sin(psi)*cos(phi))*Vz;
-        0, 0, 0, cos(theta)*sin(phi), sin(psi)*sin(theta)*sin(phi)+cos(psi)*cos(phi), cos(psi)*sin(theta)*sin(phi)-sin(psi)*cos(phi), (cos(psi)*sin(theta)*sin(phi)-sin(psi)*cos(phi))*Vy+(-sin(psi)*sin(theta)*sin(phi)-cos(psi)*cos(phi))*Vz, -sin(theta)*sin(phi)*Vx+sin(psi)*cos(theta)*sin(phi)*Vy+cos(psi)*cos(theta)*sin(phi)*Vz, cos(theta)*cos(phi)*Vx+(sin(psi)*sin(theta)*cos(phi)-cos(psi)*sin(phi))*Vy+(cos(psi)*sin(theta)*cos(phi)+sin(psi)*sin(phi))*Vz;
-        0, 0, 0, -sin(theta), sin(psi)*cos(theta), cos(psi)*cos(theta), cos(psi)*cos(theta)*Vy-sin(psi)*cos(theta)*Vz, -cos(theta)*Vx-sin(psi)*sin(theta)*Vy-cos(psi)*sin(theta)*Vz,0;
-        0,0,0,0,0,0,0,0,0;
-        0,0,0,0,0,0,0,0,0;
-        0,0,0,0,0,0,0,0,0;
-        0,0,0,0,0,0, cos(psi)*tan(theta)*(Kgtheta*wtheta)-sin(psi)*tan(theta)*(Kgphi*wphi), sin(psi)*(1+tan(theta)^2)*(Kgtheta*wtheta)+cos(psi)*(1+tan(theta)^2)*(Kgphi*wphi), 0;
-        0,0,0,0,0,0, -sin(psi)*(Kgtheta*wtheta)-cos(psi)*(Kgphi*wphi),0,0;
-        0,0,0,0,0,0, cos(psi)/cos(theta)*(Kgtheta*wtheta)-sin(psi)/cos(theta)*(Kgphi*wphi),sin(psi)/cos(theta)^2*(Kgtheta*wtheta)*sin(theta)+cos(psi)/cos(theta)^2*(Kgphi*wphi)*sin(theta),0;
-        ];
-
 
     C = [1,0,0,0,0,0,0,0,0;
         0,1,0,0,0,0,0,0,0;
@@ -96,46 +84,59 @@ for i = 1:ns-1 % Start the loop
     K = P * C' * inv( (C * P * C') + R);
 
 
+    if ( rem( i, estrate ) == 0 || i == 1 )
+        % Calculate A matrix
+        A = [ 0, 0, 0, cos(theta)*cos(phi), sin(psi)*sin(theta)*cos(phi)-cos(psi)*sin(phi), -cos(psi)*sin(theta)*cos(phi)+sin(psi)*sin(phi), (cos(psi)*sin(theta)*cos(phi)+sin(psi)*sin(phi))*Vy+(sin(psi)*sin(theta)*cos(phi)+cos(psi)*sin(phi))*Vz, -sin(theta)*cos(phi)*Vx+sin(psi)*cos(theta)*cos(phi)*Vy-cos(psi)*cos(theta)*cos(phi)*Vz, -cos(theta)*sin(phi)*Vx+(sin(psi)*sin(theta)*sin(phi)-cos(psi)*cos(phi))*Vy+(cos(psi)*sin(theta)*sin(phi)+sin(psi)*cos(phi))*Vz;
+            0, 0, 0, cos(theta)*sin(phi), sin(psi)*sin(theta)*sin(phi)+cos(psi)*cos(phi), cos(psi)*sin(theta)*sin(phi)-sin(psi)*cos(phi), (cos(psi)*sin(theta)*sin(phi)-sin(psi)*cos(phi))*Vy+(-sin(psi)*sin(theta)*sin(phi)-cos(psi)*cos(phi))*Vz, -sin(theta)*sin(phi)*Vx+sin(psi)*cos(theta)*sin(phi)*Vy+cos(psi)*cos(theta)*sin(phi)*Vz, cos(theta)*cos(phi)*Vx+(sin(psi)*sin(theta)*cos(phi)-cos(psi)*sin(phi))*Vy+(cos(psi)*sin(theta)*cos(phi)+sin(psi)*sin(phi))*Vz;
+            0, 0, 0, -sin(theta), sin(psi)*cos(theta), cos(psi)*cos(theta), cos(psi)*cos(theta)*Vy-sin(psi)*cos(theta)*Vz, -cos(theta)*Vx-sin(psi)*sin(theta)*Vy-cos(psi)*sin(theta)*Vz,0;
+            0,0,0,0,0,0,0,0,0;
+            0,0,0,0,0,0,0,0,0;
+            0,0,0,0,0,0,0,0,0;
+            0,0,0,0,0,0, cos(psi)*tan(theta)*(Kgtheta*wtheta)-sin(psi)*tan(theta)*(Kgphi*wphi), sin(psi)*(1+tan(theta)^2)*(Kgtheta*wtheta)+cos(psi)*(1+tan(theta)^2)*(Kgphi*wphi), 0;
+            0,0,0,0,0,0, -sin(psi)*(Kgtheta*wtheta)-cos(psi)*(Kgphi*wphi),0,0;
+            0,0,0,0,0,0, cos(psi)/cos(theta)*(Kgtheta*wtheta)-sin(psi)/cos(theta)*(Kgphi*wphi),sin(psi)/cos(theta)^2*(Kgtheta*wtheta)*sin(theta)+cos(psi)/cos(theta)^2*(Kgphi*wphi)*sin(theta),0;
+            ];
 
-    % Actual Observations
-    % Generate value for output
-    act_theta = 0;
-    act_psi = 0;
-    act_Vx = r*w;
-    act_Vy = 0;
-    act_Vz = 0;
-    act_wpsi = 0;
-    act_wphi = w;
-    act_wtheta = 0;
-    act_Bax = 0;
-    act_Bay = 0;
-    act_Baz = 0;
-    Ax(1,i) = ( (-act_Vy*(act_wphi)/g + act_Vz*(act_wtheta))/g + sin(act_theta) )*Kax + act_Bax;
-    Ay(1,i) = ( (act_Vx*(act_wphi)/g - act_Vz*(act_wpsi))/g - sin(act_psi)*cos(act_theta))*Kay + act_Bay;
-    Az(1,i) = ( (-act_Vx*(act_wtheta)/g + act_Vy*(act_wpsi))/g - cos(act_theta)*cos(act_psi))*Kaz + act_Baz;
-    Ya = [ r*cos(w*t(1,i)); r*sin(w*t(1,i));h ; Ax(1,i);Ay(1,i);Az(1,i)];
+        % Actual Observations
+        % Generate value for output
+        act_theta = 0;
+        act_psi = 0;
+        act_Vx = r*w;
+        act_Vy = 0;
+        act_Vz = 0;
+        act_wpsi = 0;
+        act_wphi = w;
+        act_wtheta = 0;
+        act_Bax = 0;
+        act_Bay = 0;
+        act_Baz = 0;
+        Ax(1,i) = ( (-act_Vy*(act_wphi)/g + act_Vz*(act_wtheta))/g + sin(act_theta) )*Kax + act_Bax;
+        Ay(1,i) = ( (act_Vx*(act_wphi)/g - act_Vz*(act_wpsi))/g - sin(act_psi)*cos(act_theta))*Kay + act_Bay;
+        Az(1,i) = ( (-act_Vx*(act_wtheta)/g + act_Vy*(act_wpsi))/g - cos(act_theta)*cos(act_psi))*Kaz + act_Baz;
+        Ya = [ r*cos(w*t(1,i)); r*sin(w*t(1,i));h ; Ax(1,i);Ay(1,i);Az(1,i)];
 
-    % Calculate Residue
-    res = Ya - Yc;
+        % Calculate Residue
+        res = Ya - Yc;
 
-    % Correct the estimates
-%     X(:,i) = X(:,i) + K * res;
-X(:,i) = X(:,i) + K * (Ya - C * X(:,i));
+        % Correct the estimates
+        %     X(:,i) = X(:,i) + K * res;
+        X(:,i) = X(:,i) + K * (Ya - C * X(:,i));
+    end  % end the observation correction if 
     % For next loop
-        % Compute value of f(x,u) for these states  
+    % Compute value of f(x,u) for these states
     func = [ cos(theta)*cos(phi)*Vx+(sin(psi)*sin(theta)*cos(phi)-cos(psi)*sin(phi))*Vy+(-cos(psi)*sin(theta)*cos(phi)+sin(psi)*sin(phi))*Vz;
-             cos(theta)*sin(phi)*Vx+(sin(psi)*sin(theta)*sin(phi)+cos(psi)*cos(phi))*Vy+(cos(psi)*sin(theta)*sin(phi)-sin(psi)*cos(phi))*Vz;
-             -sin(theta)*Vx+sin(psi)*cos(theta)*Vy+cos(psi)*cos(theta)*Vz;
-              0;
-              0;
-              0;
-             Kgpsi*wpsi+sin(psi)*tan(theta)*(Kgtheta*wtheta)+cos(psi)*tan(theta)*(Kgphi*wphi);
-             cos(psi)*(Kgtheta*wtheta)+sin(psi)*(Kgphi*wphi);
-             sin(psi)/cos(theta)*(Kgtheta*wtheta)+cos(psi)/cos(theta)*(Kgphi*wphi);
-];
+        cos(theta)*sin(phi)*Vx+(sin(psi)*sin(theta)*sin(phi)+cos(psi)*cos(phi))*Vy+(cos(psi)*sin(theta)*sin(phi)-sin(psi)*cos(phi))*Vz;
+        -sin(theta)*Vx+sin(psi)*cos(theta)*Vy+cos(psi)*cos(theta)*Vz;
+        0;
+        0;
+        0;
+        Kgpsi*wpsi+sin(psi)*tan(theta)*(Kgtheta*wtheta)+cos(psi)*tan(theta)*(Kgphi*wphi);
+        cos(psi)*(Kgtheta*wtheta)+sin(psi)*(Kgphi*wphi);
+        sin(psi)/cos(theta)*(Kgtheta*wtheta)+cos(psi)/cos(theta)*(Kgphi*wphi);
+        ];
     % Approximate next states of the system
-%     X(:,i+1) = A * X(:,i);
- X(:,i+1) = X(:,i) + ts * func;
+    %     X(:,i+1) = A * X(:,i);
+    X(:,i+1) = X(:,i) + ts * func;
     %Aposteri
     T = (eye(9) - K*C) * P;
     % Update P for next estimate
