@@ -101,12 +101,12 @@ for i = 1:ns-1
               0,0,0,0,0,0, cos(psi)*tan(theta)*(Kgtheta*wtheta+Bay)-sin(psi)*tan(theta)*(Kgphi*wphi+Baz), sin(psi)*(1+tan(theta)^2)*(Kgtheta*wtheta+Bay)+cos(psi)*(1+tan(theta)^2)*(Kgphi*wphi+Baz), 0,0,0,0, 1, sin(psi)*tan(theta),cos(psi)*tan(theta);
               0,0,0,0,0,0, -sin(psi)*(Kgtheta*wtheta+Bay)-cos(psi)*(Kgphi*wphi+Baz),0,0,0,0,0,0,cos(psi),-sin(psi);
               0,0,0,0,0,0, cos(psi)/cos(theta)*(Kgtheta*wtheta+Bay)-sin(psi)/cos(theta)*(Kgphi*wphi+Baz),sin(psi)/cos(theta)^2*(Kgtheta*wtheta+Bay)*sin(theta)+cos(psi)/cos(theta)^2*(Kgphi*wphi+Baz)*sin(theta),0,0,0,0,0,sin(psi)/cos(theta),cos(psi)/cos(theta);
-              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;
-              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;
-              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;
-              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;
-              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;
-              0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+              0,0,0,0,0,0,0,0,0,1,0,0,0,0,0;
+              0,0,0,0,0,0,0,0,0,0,1,0,0,0,0;
+              0,0,0,0,0,0,0,0,0,0,0,1,0,0,0;
+              0,0,0,0,0,0,0,0,0,0,0,0,1,0,0;
+              0,0,0,0,0,0,0,0,0,0,0,0,0,1,0;
+              0,0,0,0,0,0,0,0,0,0,0,0,0,0,1];
     
         % Compute Value for B
         B = [ 0,0,0;
