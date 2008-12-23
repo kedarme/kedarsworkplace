@@ -1,0 +1,57 @@
+<project name="TicTacToe" default="dist" basedir=".">
+	<description>Build file for Project</description>
+	<!-- set global properties for this build -->
+	<property name="src" location="src" />
+	<property name="build" location="build" />
+	<property name="dist" location="dist" />
+	<property name="proj" value="TicTacToe" />
+	<property name="javadoc" location="${basedir}/javadoc/" />
+
+	<target name="init">
+		<echo>Initialise Build</echo>
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
+	</target>
+
+	<target name="compile" depends="init" description="compile the source ">
+		<echo>Start Compile</echo>
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${src}" destdir="${build}" />
+	</target>
+
+	<target name="dist" depends="compile" description="generate the distribution">
+		<echo>Generate Distribution</echo>
+		<!-- Create the distribution directory -->
+		<mkdir dir="${dist}/lib" />
+		<!-- Put everything in ${build} into the CyrusSort.jar file -->
+		<jar jarfile="${dist}/lib/${proj}.jar" basedir="${build}">
+			<manifest>
+				<attribute name="Main-Class" value="game.app.Play" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="clean" description="clean up">
+		<!-- Delete the ${build} and ${dist} ${basedir}/javadoc/ directory trees -->
+		<echo>Initialise Clean up</echo>
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+		<delete dir="${javadoc}" />
+	</target>
+
+	<target name="javadoc" description="Create Javadocs">
+		<!-- Create Java docs for the project -->
+		<echo>Generate Java Docs</echo>
+		<mkdir dir="${basedir}/javadoc/" />
+		<javadoc access="private" author="true" destdir="${javadoc}" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="game.app,game.util" source="1.6" sourcepath="${src}" splitindex="true" use="true" version="true" link="http://java.sun.com/javase/6/docs/api/" />
+	</target>
+
+
+	<target name="run">
+		<!-- Runs the Sort Main -->
+		<java jar="${dist}/lib/${proj}.jar" fork="true" />
+	</target>
+
+</project>
