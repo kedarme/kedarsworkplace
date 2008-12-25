@@ -8,11 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * This class reads the data file based on information passed in list of
- * {@link base.app.InputFile} classes. This data is used to instantiate and
- * create a list of Person objects. This is the master data list. The Columns
- * list is used with Class reflection to invoke the setter methods of
- * {@link base.app.Person} Object.
+ * This class reads the data file invoked in the scanFile method. The dumpWeight
+ * and inventory list is set which can be read by corresponding geter methods
  * 
  * @author Kedar Kulkarni
  * 
@@ -20,13 +17,28 @@ import java.util.Scanner;
 public class DataFileScanner {
 	/** The Item data master list */
 	List<Item> itemList = null;
+	/** Dump Weight */
 	Integer weightToLoose = null;
 
+	/**
+	 * Class constructor initializes itemList
+	 * 
+	 * @throws ClassNotFoundException
+	 */
 	public DataFileScanner() throws ClassNotFoundException {
 		// Initialize master data list.
 		itemList = new ArrayList<Item>();
 	}
 
+	/**
+	 * This method reads the file specified in the argument
+	 * 
+	 * @param fileName
+	 * @throws FileNotFoundException
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 */
 	public void scanFile(String fileName) throws FileNotFoundException,
 			NoSuchMethodException, InvocationTargetException,
 			IllegalAccessException {
@@ -36,30 +48,45 @@ public class DataFileScanner {
 		while (scanner.hasNextLine()) {
 			// Read one line as a String.
 			String line = scanner.nextLine();
-			// Initialize Scanner object for the record and uses default delimiter.
+			// Initialize Scanner object for the record and uses default
+			// delimiter.
 			Scanner lineScanner = new Scanner(line);
 			if (lineScanner.hasNextInt()) { // We are reading the first line
+				// Set the dump weight
 				weightToLoose = lineScanner.nextInt();
-			} else {
+			} else { // We are reading the inventory list
 				Item newItem = new Item();
-				if (lineScanner.hasNext()) { // SKU
+				if (lineScanner.hasNext()) { // Read SKU
 					newItem.setSku(lineScanner.next().trim());
 				}
-				if (lineScanner.hasNext()) { // SKU
+				if (lineScanner.hasNext()) { // Read Weight
 					newItem.setWeight(lineScanner.nextInt());
 				}
-				if (lineScanner.hasNext()) { // SKU
+				if (lineScanner.hasNext()) { // Read Price
 					newItem.setPrice(lineScanner.nextInt());
 				}
+				// Add item to inventory list
 				itemList.add(newItem);
 			}
 			lineScanner.close();
 		}
 		scanner.close();
 	}
+
+	/**
+	 * Method returns dump weight
+	 * 
+	 * @return
+	 */
 	public Integer getWeightToLoose() {
 		return this.weightToLoose;
 	}
+
+	/**
+	 * Method returns dump weight
+	 * 
+	 * @return
+	 */
 	public List<Item> getItemList() {
 		return this.itemList;
 	}
