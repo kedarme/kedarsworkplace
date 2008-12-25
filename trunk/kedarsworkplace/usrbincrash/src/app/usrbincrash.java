@@ -48,11 +48,8 @@ public class usrbincrash {
 		for (int i = 0; i < noOfItems; i++) {
 			recordsTemp.clear();
 			Item tempItem = itemList.get(i);
-			// Remove the obvious failing cases
-			recordsTemp = minimiser(records);
-			records.clear();
-			records.addAll(recordsTemp);
-			recordsTemp.clear();
+			//Minimize the records
+			minimiser(records);
 			// Get all possible cases already considered.
 			Integer recordsSize = records.size();
 			// Loop through the older cases
@@ -62,14 +59,15 @@ public class usrbincrash {
 				Integer oldPrice = oldRecord.getSumPrice();
 				Integer oldWeight = oldRecord.getSumWeight();
 				Integer oldWeightConstant = oldWeight;
-				Integer x = 0; 
+				Integer x = 0;
 				// Max number of current items to make the weight
 				while (oldWeight <= weightToLoose) {
 					x += 1;
 					oldWeight += tempItem.getWeight();
 				}
 
-				// Create New Possible combinations leading to max number of current items
+				// Create New Possible combinations leading to max number of
+				// current items
 				for (Integer j = 0; j <= x; j++) {
 					// Start creating new case with existing older cases.
 					Hashtable<String, Integer> newCases = new Hashtable<String, Integer>(
@@ -93,62 +91,64 @@ public class usrbincrash {
 			// Update with new records
 			records.addAll(recordsTemp);
 		}
-		System.out.println("Printing after loop");
-		// printListRecord(records);
-		// List<Record> recordsTemp = new ArrayList<Record>();
-		recordsTemp.clear();
 		Integer initS = records.size();
 		System.out.println("Initial size=" + initS);
+		// Prune records which have weight less than required
 		Iterator<Record> it = records.iterator();
 		while (it.hasNext()) {
 			Record tempRecord = (Record) it.next();
-			if (tempRecord.getSumWeight() >= weightToLoose) {
-				recordsTemp.add(tempRecord);
+			if (tempRecord.getSumWeight() < weightToLoose) {
+				it.remove();
 			}
-		}
-		Integer initF = recordsTemp.size();
-		System.out.println("Stripped size=" + initF);
 
-		Collections.sort(recordsTemp, new RecordsComparator());
-		// printRecord(recordsTemp.get(0), "+++++++++++++++++++");
-		printListRecord(recordsTemp);
+		}
+		Integer initF = records.size();
+		System.out.println("Stripped size=" + initF);
+		Collections.sort(records, new RecordsComparator());
+		printListRecord(records);
 	}
 
-	private static List<Record> minimiser(List<Record> list) {
-		List<Record> newList = new ArrayList<Record>();
+	/**
+	 * This method minimizes the available records at every stage. It sorts
+	 * current record by price and then prunes away records which are meet dump
+	 * requirement but are costlier then our minimum priced record.
+	 * 
+	 * This is based on the fact that any record which meets dump weight already
+	 * will not be modified by addition of next items.
+	 * 
+	 * @param list
+	 */
+	private static void minimiser(List<Record> list) {
 		// Sort the current record stack by Price
-		Collections.sort(newList, new RecordsComparator());
+		Collections.sort(list, new RecordsComparator());
+		// Get iterator over current records
 		Iterator<Record> it = list.iterator();
-		Record qualify = new Record(0, 0, null);
+		// Set minPrice to lowest possible
 		Integer minPrice = 0;
 		while (it.hasNext()) {
+			// Get new Record
 			Record newRecord = (Record) it.next();
+			// Note weight
 			Integer recordWeight = newRecord.getSumWeight();
-			if (recordWeight < weightToLoose) { // can be recombined
-				newList.add(newRecord);
-			} else { // weight qualifies dump weight
-				Integer recordPrice = qualify.getSumPrice();
+			// Check if this record can be operated on
+			if (recordWeight >= weightToLoose) {
+				Integer recordPrice = newRecord.getSumPrice();
 				// Price has'nt been updated. This is first qualifier record.
 				// Set Price as min Price
 				if (minPrice == 0) {
 					minPrice = recordPrice;
-					// Add this record to newList
-					newList.add(newRecord);
-				} else if (recordPrice < minPrice) { // We have a record with
-														// price lower than our
-														// minPrice
+				} else if (recordPrice < minPrice) {
+					// We have a record with price lower than our
+					// minPrice
 					minPrice = recordPrice;
-					// Add this record to newList
-					newList.add(newRecord);
-				} else { // We have a qualifier weight with price more than
-							// current minimum price
-					// Do nothing
+				} else {
+					// We have a qualifier weight with price more than current
+					// minimum price. Remove it
+					it.remove();
 				}
 			}
 
 		}
-
-		return newList;
 	}
 
 	private static void printList(List<Item> list) {
