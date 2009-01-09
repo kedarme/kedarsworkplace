@@ -8,3 +8,4 @@ NLSPK        75         2200
 NNOPSA       400        8750  
 NPAJJOL      25         7887
 HHOPPP       12         1
+HJJOO	     120		    70
