@@ -1,5 +1,3 @@
-
-
 /**
  * This class holds the data for the an individual item in the inventory.
  * 

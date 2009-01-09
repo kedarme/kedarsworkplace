@@ -1,5 +1,3 @@
-
-
 import java.util.Comparator;
 
 /**
@@ -13,7 +11,6 @@ public class ItemComparator implements Comparator<Item> {
 	/**
 	 * The overidden compare method.
 	 */
-	@Override
 	public int compare(Item obj1, Item obj2) {
 		// Price per unit weight for obj1
 		Double pricePerPound1 = (obj1.getPrice().doubleValue() / obj1
