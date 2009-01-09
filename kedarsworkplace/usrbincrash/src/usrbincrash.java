@@ -118,7 +118,6 @@ public class usrbincrash {
 			}
 			Collections.sort(records, new RecordsComparator());
 			System.out.println(records.get(0).getSumPrice());
-			System.out.println("[Time="+(new Date().getTime() - sTime)+"ms][No of Records Generated="+records.size()+"]");
 		}/* Catch all possible Exception in the program */
 		catch (ClassNotFoundException cnfe) {
 			System.out.println("Exception: " + cnfe.toString());
@@ -146,28 +145,28 @@ public class usrbincrash {
 	 * 
 	 * @param list
 	 */
-	 private static void minimiser(List<Record> list) {
-		 Iterator<Record> it = list.iterator();
-		 Integer minPrice = 0;
-		 // 1st Sweep Sets minPrice
-		 while (it.hasNext()) {
-			 Record newRecord = (Record) it.next();
-			 Integer recordWeight = newRecord.getSumWeight();
-			 if (recordWeight >= weightToLoose) {
-				 Integer recordPrice = newRecord.getSumPrice();
-				 if ( ( recordPrice < minPrice ) || ( minPrice == 0 ) ) {
-					 minPrice = recordPrice; 
-				 }
-			 }
-		 }
+	private static void minimiser(List<Record> list) {
+		Iterator<Record> it = list.iterator();
+		Integer minPrice = 0;
+		// 1st Sweep Sets minPrice
+		while (it.hasNext()) {
+			Record newRecord = (Record) it.next();
+			Integer recordWeight = newRecord.getSumWeight();
+			if (recordWeight >= weightToLoose) {
+				Integer recordPrice = newRecord.getSumPrice();
+				if ((recordPrice < minPrice) || (minPrice == 0)) {
+					minPrice = recordPrice;
+				}
+			}
+		}
 		// 2nd Sweep remove records
 		it = list.iterator();
-		 while (it.hasNext()) {
-			 Record newRecord = (Record) it.next();
-				 Integer recordPrice = newRecord.getSumPrice();
-				 if ( recordPrice > minPrice ) {
-					 it.remove(); 
-				 }
-		 }
-	 }
+		while (it.hasNext()) {
+			Record newRecord = (Record) it.next();
+			Integer recordPrice = newRecord.getSumPrice();
+			if (recordPrice > minPrice) {
+				it.remove();
+			}
+		}
+	}
 }

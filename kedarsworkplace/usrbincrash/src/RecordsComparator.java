@@ -1,5 +1,3 @@
-
-
 import java.util.Comparator;
 
 /**
@@ -13,7 +11,6 @@ public class RecordsComparator implements Comparator<Record> {
 	/**
 	 * The overidden compare method.
 	 */
-	@Override
 	public int compare(Record obj1, Record obj2) {
 		// Return comparison between the prices.
 		return obj1.getSumPrice().compareTo(obj2.getSumPrice());
