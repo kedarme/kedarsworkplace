@@ -1,123 +1,50 @@
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-/**
- * This is the main entry point for the "usrbincrash" problem.
- * 
- * @author Kedar Kulkarni
- * 
- */
 public class usrbincrash {
+	/** default flag indicating impossible conditions */
+	private static final int FLAG = -1;
+
+	/** The Inventory List */
+	static List<Item> itemList;
+
+	/** Map of records indicating cost => weight mapping */
+	static Map<Integer, Integer> records = new LinkedHashMap<Integer, Integer>();
+
 	/** The weight to loose */
 	static Integer weightToLoose = null;
 
-	/**
-	 * The main method. Takes the file name with first line weight to dump and
-	 * the rest of the lines is list of inventory.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		// Check if we have a filename argument passed
+		if (args.length != 1) {
+			System.out.println("Input expected.");
+			System.exit(0);
+		}
 		try {
-			long sTime = new Date().getTime();
-			// Check if we have a filename argument passed
-			if (args.length != 1) {
-				System.out.println("Input expected.");
-				System.exit(0);
-			}
 			// Begin scanning data file
 			DataFileScanner ds = new DataFileScanner();
 			ds.scanFile(args[0]);
 			// Get how much weight needs to be dumped
 			weightToLoose = ds.getWeightToLoose();
 			// Get the inventory list
-			List<Item> itemList = ds.getItemList();
-			// Sort by weight/cost
-			Collections.sort(itemList, new ItemComparator());
-			// Get length of inventory
-			Integer noOfItems = itemList.size();
-			// List of records
-			List<Record> records = new ArrayList<Record>();
+			itemList = ds.getItemList();
 			// Create a dummy record for first sweep. This will create the
-			// records
-			// for first item.
-			records.add(new Record(0, 0, new Hashtable<String, Integer>()));
-			// Temporary list of records for modification
-			List<Record> recordsTemp = new ArrayList<Record>();
+			// records for first item.
+			records.put(0, 0);
+			// The cost for which we try to get how much weight can be dropped
+			int cost = FLAG;
+			// The resultWeight for given cost
+			int resultWeight = FLAG;
 
-			// Loop through existing item list
-			for (int i = 0; i < noOfItems; i++) {
-				recordsTemp.clear();
-				Item tempItem = itemList.get(i);
-				// Minimize the records
-				minimiser(records);
-				// Get all possible cases already considered.
-				Integer recordsSize = records.size();
-				// Loop through the older cases
-				for (int k = 0; k < recordsSize; k++) {
-					// Get current record
-					Record oldRecord = (Record) records.get(k);
-					// Get current cases
-					Hashtable<String, Integer> oldCases = oldRecord.getCases();
-					// Get Price of the current record
-					Integer oldPrice = oldRecord.getSumPrice();
-					// Get Weight of the current record
-					Integer oldWeight = oldRecord.getSumWeight();
-					// Set a constant for the weight of current record
-					Integer oldWeightConstant = oldWeight;
-					// Initiate a constant for number of current items to make
-					// the
-					// dump weight
-					Integer x = 0;
-					// Max number of current items to make the dump weight
-					while (oldWeight <= weightToLoose) {
-						x += 1;
-						oldWeight += tempItem.getWeight();
-					}
-
-					// Create New Possible combinations leading to max number of
-					// current items
-					for (Integer j = 0; j <= x; j++) {
-						// Start creating new case with existing older cases.
-						Hashtable<String, Integer> newCases = new Hashtable<String, Integer>(
-								oldCases);
-						// Append current item to list of cases
-						newCases.put(tempItem.getSku(), j);
-						// Update the Price of the record
-						Integer sumPrice = oldPrice + (tempItem.getPrice() * j);
-						// Update the Weight of the record
-						Integer sumWeight = oldWeightConstant
-								+ (tempItem.getWeight() * j);
-						// Create new record item
-						Record tempRec = new Record(sumPrice, sumWeight,
-								newCases);
-						// Add record to list of records
-						recordsTemp.add(tempRec);
-					}
-
-				}
-				// Delete all old records
-				records.clear();
-				// Update with new records
-				records.addAll(recordsTemp);
+			// Loop till we have a weight satisfying the weight to drop
+			while (resultWeight < weightToLoose) {
+				// Calls function getMaxWeight with increasing costs
+				resultWeight = getMaxWeight(++cost);
 			}
-			// Prune records which have weight less than dump weight
-			Iterator<Record> it = records.iterator();
-			while (it.hasNext()) {
-				Record tempRecord = (Record) it.next();
-				if (tempRecord.getSumWeight() < weightToLoose) {
-					it.remove();
-				}
-
-			}
-			Collections.sort(records, new RecordsComparator());
-			System.out.println(records.get(0).getSumPrice());
+			System.out.println("Final Cost:" + cost);
 		}/* Catch all possible Exception in the program */
 		catch (ClassNotFoundException cnfe) {
 			System.out.println("Exception: " + cnfe.toString());
@@ -136,37 +63,53 @@ public class usrbincrash {
 	}
 
 	/**
-	 * This method minimizes the available records at every stage. It sorts
-	 * current record by price and then prunes away records which are meet dump
-	 * requirement but are costlier then our minimum priced record.
+	 * This function returns the weight that can be dropped for a given cost. It
+	 * also creates the map of cost => weight. This function calls itself
+	 * iteratively to calculate the required weight value.
 	 * 
-	 * This is based on the fact that any record which meets dump weight already
-	 * will not be modified by addition of next items.
-	 * 
-	 * @param list
+	 * @param cost
+	 * @return
 	 */
-	private static void minimiser(List<Record> list) {
-		Iterator<Record> it = list.iterator();
-		Integer minPrice = 0;
-		// 1st Sweep Sets minPrice
-		while (it.hasNext()) {
-			Record newRecord = (Record) it.next();
-			Integer recordWeight = newRecord.getSumWeight();
-			if (recordWeight >= weightToLoose) {
-				Integer recordPrice = newRecord.getSumPrice();
-				if ((recordPrice < minPrice) || (minPrice == 0)) {
-					minPrice = recordPrice;
-				}
-			}
+	private static int getMaxWeight(int cost) {
+		// For obvious condition of negative cost return FLAG.
+		// This occurs during function iterative calls
+		if (cost < 0) {
+			return FLAG;
 		}
-		// 2nd Sweep remove records
-		it = list.iterator();
-		while (it.hasNext()) {
-			Record newRecord = (Record) it.next();
-			Integer recordPrice = newRecord.getSumPrice();
-			if (recordPrice > minPrice) {
-				it.remove();
-			}
+		// Return the corresponding weight we calculated for this cost.
+		// This step is an DP execution
+		if (records.containsKey(cost)) {
+			return records.get(cost);
 		}
+
+		// Set the variable for default weight. Assume it to be worst i.e.
+		// invalid FLAG
+		int defaultWeight = FLAG;
+		// Iterate over the inventory list
+		for (int index = 0; index < itemList.size(); index++) {
+			// Calculate current drop weight considering current item. The
+			// iterative call to this function with the price margin as cost
+			// will either return invalid state ( when price of current
+			// item=>total cost allocated for this iteration => passes negative
+			// cost to the function) or gives a pre-calculated weight for this
+			// cost if it exists in the cost=>weight map
+			int currentWeight = getMaxWeight(cost
+					- itemList.get(index).getPrice());
+			// If we got a invalid weight state try the the next item.
+			if (currentWeight < 0) {
+				continue;
+			}
+			// Proceed here for valid weight state. Add weight of current item
+			// to the current accumulated weight
+			currentWeight += itemList.get(index).getWeight();
+			// Check if the currentWeight > defaultWeight. This will be used to
+			// fill in the cost=>weight map
+			defaultWeight = (currentWeight > defaultWeight) ? currentWeight
+					: defaultWeight;
+		}
+		// Add the current iterations cost=>weight to the map
+		records.put(cost, defaultWeight);
+		// Return the weight calculated for the cost passed to this iteration
+		return defaultWeight;
 	}
 }
