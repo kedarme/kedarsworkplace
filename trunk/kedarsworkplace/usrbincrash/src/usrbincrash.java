@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class usrbincrash {
 	/** default flag indicating impossible conditions */
-	private static final int FLAG = -1;
+	private static final int NEGATIVE_FLAG = -1;
 
 	/** The Inventory List */
 	static List<Item> itemList;
@@ -35,16 +35,17 @@ public class usrbincrash {
 			// records for first item.
 			records.put(0, 0);
 			// The cost for which we try to get how much weight can be dropped
-			int cost = FLAG;
+			int cost = NEGATIVE_FLAG;
 			// The resultWeight for given cost
-			int resultWeight = FLAG;
+			int resultWeight = NEGATIVE_FLAG;
 
 			// Loop till we have a weight satisfying the weight to drop
 			while (resultWeight < weightToLoose) {
 				// Calls function getMaxWeight with increasing costs
 				resultWeight = getMaxWeight(++cost);
 			}
-			System.out.println("Final Cost:" + cost);
+			// Print the final out put
+			System.out.println(cost);
 		}/* Catch all possible Exception in the program */
 		catch (ClassNotFoundException cnfe) {
 			System.out.println("Exception: " + cnfe.toString());
@@ -74,7 +75,7 @@ public class usrbincrash {
 		// For obvious condition of negative cost return FLAG.
 		// This occurs during function iterative calls
 		if (cost < 0) {
-			return FLAG;
+			return NEGATIVE_FLAG;
 		}
 		// Return the corresponding weight we calculated for this cost.
 		// This step is an DP execution
@@ -84,7 +85,7 @@ public class usrbincrash {
 
 		// Set the variable for default weight. Assume it to be worst i.e.
 		// invalid FLAG
-		int defaultWeight = FLAG;
+		int defaultWeight = NEGATIVE_FLAG;
 		// Iterate over the inventory list
 		for (int index = 0; index < itemList.size(); index++) {
 			// Calculate current drop weight considering current item. The
