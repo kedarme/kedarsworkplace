@@ -1,0 +1,589 @@
+Model {
+  Name			  "sf_uavmode_template"
+  Version		  5.0
+  SaveDefaultBlockParams  on
+  SampleTimeColors	  off
+  LibraryLinkDisplay	  "none"
+  WideLines		  off
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ExecutionOrder	  off
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  DataTypeOverride	  "UseLocalSettings"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  Created		  "Sat Apr 20 15:23:16 2002"
+  Creator		  "dlluch"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "dlluch"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Sun Aug 17 17:24:05 2003"
+  ModelVersionFormat	  "1.%<AutoIncrement:6>"
+  ConfigurationManager	  "sourcesafe"
+  SimParamPage		  "Solver"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  ExtModeMexFile	  "ext_comm"
+  ExtModeBatchMode	  off
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
+  RTWExpressionDepthLimit 5
+  SimulationMode	  "normal"
+  Solver		  "ode45"
+  SolverMode		  "Auto"
+  StartTime		  "0.0"
+  StopTime		  "10.0"
+  MaxOrder		  5
+  MaxStep		  "auto"
+  MinStep		  "auto"
+  MaxNumMinSteps	  "-1"
+  InitialStep		  "auto"
+  FixedStep		  "auto"
+  RelTol		  "1e-3"
+  AbsTol		  "auto"
+  OutputOption		  "RefineOutputTimes"
+  OutputTimes		  "[]"
+  Refine		  "1"
+  LoadExternalInput	  off
+  ExternalInput		  "[t, u]"
+  LoadInitialState	  off
+  InitialState		  "xInitial"
+  SaveTime		  on
+  TimeSaveName		  "tout"
+  SaveState		  off
+  StateSaveName		  "xout"
+  SaveOutput		  on
+  OutputSaveName	  "yout"
+  SaveFinalState	  off
+  FinalStateName	  "xFinal"
+  SaveFormat		  "Array"
+  Decimation		  "1"
+  LimitDataPoints	  on
+  MaxDataPoints		  "1000"
+  SignalLoggingName	  "sigsOut"
+  ConsistencyChecking	  "none"
+  ArrayBoundsChecking	  "none"
+  AlgebraicLoopMsg	  "warning"
+  BlockPriorityViolationMsg "warning"
+  MinStepSizeMsg	  "warning"
+  InheritedTsInSrcMsg	  "warning"
+  DiscreteInheritContinuousMsg "warning"
+  MultiTaskRateTransMsg	  "error"
+  SingleTaskRateTransMsg  "none"
+  CheckForMatrixSingularity "none"
+  IntegerOverflowMsg	  "warning"
+  Int32ToFloatConvMsg	  "warning"
+  ParameterDowncastMsg	  "error"
+  ParameterOverflowMsg	  "error"
+  ParameterPrecisionLossMsg "warning"
+  UnderSpecifiedDataTypeMsg "none"
+  UnnecessaryDatatypeConvMsg "none"
+  VectorMatrixConversionMsg "none"
+  InvalidFcnCallConnMsg	  "error"
+  SignalLabelMismatchMsg  "none"
+  UnconnectedInputMsg	  "warning"
+  UnconnectedOutputMsg	  "warning"
+  UnconnectedLineMsg	  "warning"
+  SfunCompatibilityCheckMsg "none"
+  RTWInlineParameters	  off
+  BlockReductionOpt	  on
+  BooleanDataType	  off
+  ConditionallyExecuteInputs on
+  ParameterPooling	  on
+  OptimizeBlockIOStorage  on
+  ZeroCross		  on
+  AssertionControl	  "UseLocalSettings"
+  ProdHWDeviceType	  "Microprocessor"
+  ProdHWWordLengths	  "8,16,32,32"
+  RTWSystemTargetFile	  "grt.tlc"
+  RTWTemplateMakefile	  "grt_default_tmf"
+  RTWMakeCommand	  "make_rtw"
+  RTWGenerateCodeOnly	  off
+  RTWRetainRTWFile	  off
+  TLCProfiler		  off
+  TLCDebug		  off
+  TLCCoverage		  off
+  TLCAssertion		  off
+  BlockDefaults {
+    Orientation		    "right"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Microsoft Sans Serif"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
+      BlockType		      Ground
+    }
+    Block {
+      BlockType		      "S-Function"
+      FunctionName	      "system"
+      PortCounts	      "[]"
+      SFunctionModules	      "''"
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      on
+      Permissions	      "ReadWrite"
+      RTWSystemCode	      "Auto"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      MinMaxOverflowLogging   "UseLocalSettings"
+    }
+    Block {
+      BlockType		      Terminator
+    }
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Microsoft Sans Serif"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  LineDefaults {
+    FontName		    "Microsoft Sans Serif"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  System {
+    Name		    "sf_uavmode_template"
+    Location		    [480, 85, 980, 386]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "usletter"
+    PaperUnits		    "inches"
+    ZoomFactor		    "100"
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      SubSystem
+      Name		      "uav_modes"
+      Ports		      []
+      Position		      [30, 14, 90, 66]
+      TreatAsAtomicUnit	      off
+      MaskType		      "Stateflow"
+      MaskDescription	      "Stateflow diagram"
+      MaskDisplay	      "plot(sf('Private','sfblk','xIcon'),sf('Private'"
+",'sfblk','yIcon'));text(0.5,0,sf('Private', 'sfblk', 'tIcon'),'HorizontalAl',"
+"'Center','VerticalAl','Bottom');"
+      MaskSelfModifiable      on
+      MaskIconFrame	      off
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"uav_modes"
+	Location		[257, 457, 812, 717]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Demux
+	  Name			  " Demux "
+	  Ports			  [1, 1]
+	  Position		  [270, 100, 320, 140]
+	  Outputs		  "1"
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  " Ground "
+	  Position		  [20, 111, 40, 129]
+	}
+	Block {
+	  BlockType		  "S-Function"
+	  Name			  " SFunction "
+	  Tag			  "Stateflow S-Function sf_uavmode_template 1"
+	  Ports			  [1, 1]
+	  Position		  [180, 100, 230, 140]
+	  FunctionName		  "sf_sfun"
+	  PortCounts		  "[1 1]"
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  " Terminator "
+	  Position		  [460, 111, 480, 129]
+	}
+	Line {
+	  SrcBlock		  " SFunction "
+	  SrcPort		  1
+	  DstBlock		  " Demux "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " Ground "
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " Demux "
+	  SrcPort		  1
+	  DstBlock		  " Terminator "
+	  DstPort		  1
+	}
+      }
+    }
+  }
+}
+
+# Finite State Machines
+# -- File save dated 17-Aug-2003 17:24:06
+#
+#    Stateflow Version 5.1 (R13+) dated Oct 16 2002, 19:29:15
+#
+#
+
+Stateflow {
+
+	machine {
+		id                   		1
+		name                 		"sf_uavmode_template"
+		created              		"20-Apr-2002 15:23:16"
+		isLibrary            		0
+		firstTarget          		18
+		sfVersion            		51013001
+	}
+
+	chart {
+		id                       		2
+		name                     		"uav_modes"
+		windowPosition           		[52.5 163.5 417 348.75]
+		viewLimits               		[6.385 353.74 0 290.858]
+		zoomFactor               		0.93
+		screen                   		[1 1 1024 768 1.333333333333333]
+		treeNode                 		[0 3 0 0]
+		viewObj                  		2
+		visible                  		1
+		machine                  		1
+		subviewS {
+			x1        		6.385
+			zoomFactor		0.93
+		}
+		decomposition            		SET_CHART
+		chartFileNumber          		1
+	}
+
+	state {
+		id                  		3
+		labelString         		"uav1"
+		position            		[15 15 330.125 91.375]
+		fontSize            		12
+		chart               		2
+		treeNode            		[2 4 0 0]
+		firstTransition     		8
+		superState          		GROUPED
+		subviewer           		2
+		type                		AND_STATE
+		decomposition       		CLUSTER_STATE
+		firstEvent          		13
+	}
+
+	state {
+		id                  		4
+		labelString         		"ac_avoid\n"
+						"en:mode_count[1][1]++;"
+		position            		[25 45 70 50]
+		fontSize            		12
+		chart               		2
+		treeNode            		[3 0 0 5]
+		superState          		SUBCHART
+		isGrouped           		1
+		subviewer           		2
+		subviewS {
+			x1        		-13.95
+			y1        		-13.95
+			pos       		[0 0 127.25 61.25]
+		}
+		type                		OR_STATE
+		decomposition       		CLUSTER_STATE
+	}
+
+	state {
+		id                  		5
+		labelString         		"obs_avoid\n"
+						"en:mode_count[1][2]++;"
+		position            		[105 45 70 50]
+		fontSize            		12
+		chart               		2
+		treeNode            		[3 0 4 6]
+		superState          		SUBCHART
+		isGrouped           		1
+		subviewer           		2
+		subviewS {
+			x1        		-13.95
+			y1        		-13.95
+			pos       		[0 0 131 56.75]
+		}
+		type                		OR_STATE
+		decomposition       		CLUSTER_STATE
+	}
+
+	state {
+		id                  		6
+		labelString         		"tgt_aquire\n"
+						"en:mode_count[1][3]++;"
+		position            		[185 45 70 50]
+		fontSize            		12
+		chart               		2
+		treeNode            		[3 0 5 7]
+		superState          		SUBCHART
+		isGrouped           		1
+		subviewer           		2
+		subviewS {
+			x1        		-13.95
+			y1        		-13.95
+			pos       		[0 0 134 57.5]
+		}
+		type                		OR_STATE
+		decomposition       		CLUSTER_STATE
+	}
+
+	state {
+		id                  		7
+		labelString         		"form_keep\n"
+						"en:mode_count[1][4]++;"
+		position            		[265 45 70 50]
+		fontSize            		12
+		chart               		2
+		treeNode            		[3 0 6 0]
+		superState          		SUBCHART
+		isGrouped           		1
+		subviewer           		2
+		subviewS {
+			x1        		-13.95
+			y1        		-13.95
+			pos       		[0 0 145.25 56]
+		}
+		type                		OR_STATE
+		decomposition       		CLUSTER_STATE
+	}
+
+	transition {
+		id             		8
+		labelString    		"aa"
+		labelPosition  		[68.6 22.314 15.314 16.043]
+		fontSize       		12
+		src {
+			id          		3
+			intersection		[1 0 1 0.1422 61.953 15 0 -1.9525]
+		}
+		dst {
+			id          		4
+			intersection		[1 0 -1 0.5279 61.953 45 0 1.9525]
+		}
+		midPoint       		[61.953 26.3915]
+		chart          		2
+		linkNode       		[3 0 9]
+		isGrouped      		1
+		dataLimits     		[59.553 64.353 15 45]
+		subviewer      		2
+		drawStyle      		SMART
+	}
+
+	transition {
+		id             		9
+		labelString    		"oa"
+		labelPosition  		[143.125 21.375 15.314 16.043]
+		fontSize       		12
+		src {
+			id          		3
+			intersection		[1 0 1 0.3764 139.251 15 0 0.75]
+		}
+		dst {
+			id          		5
+			intersection		[1 0 -1 0.4893 139.251 45 0 -0.75]
+		}
+		midPoint       		[139.25 26.3915]
+		chart          		2
+		linkNode       		[3 8 11]
+		isGrouped      		1
+		dataLimits     		[136.851 141.651 15 45]
+		subviewer      		2
+		drawStyle      		SMART
+	}
+
+	transition {
+		id             		10
+		labelString    		"ta"
+		labelPosition  		[226.375 21.375 11.834 16.043]
+		fontSize       		12
+		src {
+			id          		3
+			intersection		[1 0 1 0.6217 220.252 15 0 -0.25]
+		}
+		dst {
+			id          		6
+			intersection		[1 0 -1 0.5036 220.252 45 0 0.25]
+		}
+		midPoint       		[220.25 26.3915]
+		chart          		2
+		linkNode       		[3 11 12]
+		isGrouped      		1
+		dataLimits     		[217.852 222.652 15 45]
+		subviewer      		2
+		drawStyle      		SMART
+	}
+
+	transition {
+		id             		11
+		labelString    		"fk"
+		labelPosition  		[306.125 21.375 11.138 16.043]
+		fontSize       		12
+		src {
+			id          		3
+			intersection		[1 0 1 0.8648 300.497 15 0 -0.5]
+		}
+		dst {
+			id          		7
+			intersection		[1 0 -1 0.5071 300.497 45 0 0.5]
+		}
+		midPoint       		[300.5 26.3915]
+		chart          		2
+		linkNode       		[3 9 10]
+		isGrouped      		1
+		dataLimits     		[298.097 302.897 15 45]
+		subviewer      		2
+		drawStyle      		SMART
+	}
+
+	transition {
+		id             		12
+		labelPosition  		[92.004 32.254 8.353 16.043]
+		fontSize       		12
+		src {
+			intersection		[0 0 0 0 102.4075 27.9 0 0]
+		}
+		dst {
+			id          		4
+			intersection		[1 0 -1 0.9265 89.855 45 0 0]
+		}
+		midPoint       		[94.2242 32.0256]
+		chart          		2
+		linkNode       		[3 10 0]
+		isGrouped      		1
+		dataLimits     		[87.455 102.408 27.9 45]
+		subviewer      		2
+		drawStyle      		SMART
+	}
+
+	event {
+		id         		13
+		name       		"aa"
+		linkNode   		[3 0 14]
+		scope      		LOCAL_EVENT
+		trigger    		EITHER_EDGE_EVENT
+		machine    		1
+	}
+
+	event {
+		id         		14
+		name       		"fk"
+		linkNode   		[3 13 15]
+		scope      		LOCAL_EVENT
+		trigger    		EITHER_EDGE_EVENT
+		machine    		1
+	}
+
+	event {
+		id         		15
+		name       		"oa"
+		linkNode   		[3 14 16]
+		scope      		LOCAL_EVENT
+		trigger    		EITHER_EDGE_EVENT
+		machine    		1
+	}
+
+	event {
+		id         		16
+		name       		"ta"
+		linkNode   		[3 15 0]
+		scope      		LOCAL_EVENT
+		trigger    		EITHER_EDGE_EVENT
+		machine    		1
+	}
+
+	instance {
+		id     		17
+		name   		"uav_modes"
+		machine		1
+		chart  		2
+	}
+
+	target {
+		id               		18
+		name             		"sfun"
+		description      		"Default Simulink S-Function Target."
+		machine          		1
+		linkNode         		[1 0 0]
+	}
+}
