@@ -1,0 +1,20 @@
+#VRML V2.0 utf8
+
+#Created with V-Realm Builder v2.0
+#Integrated Data Systems Inc.
+#www.ids-net.com
+
+
+DirectionalLight {
+	intensity	1
+	direction	4 -19 4
+}
+WorldInfo {
+	info	"MultiUAVSim"
+	title	"Multiple UAV Simulation"
+}
+DEF VRcoor_to_NED Transform {
+  rotation 1 0 0 3.1416
+  scale 1 1 1
+  translation 0 0 0
+}

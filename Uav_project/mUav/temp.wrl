@@ -1,0 +1,180 @@
+#VRML V2.0 utf8
+
+DirectionalLight {
+  direction 4 -19 4
+}
+WorldInfo {
+  title "Multiple UAV Simulation"
+  info "MultiUAVSim" 
+}
+DEF VRcoor_to_NED Transform {
+  rotation 1 0 0 3.1416
+  children [
+    DEF uav1 Transform {
+      translation 0 0 1
+      scale 10 10 10
+      children [
+        DEF uav1_vehicle Inline {
+          url "myfish.wrl" 
+        }
+        DEF uav1_topview Viewpoint {
+          description "uav1_top"
+          position 0 0 -300
+          orientation 1 0 0 3.1416
+        }
+        DEF uav1_sideview Viewpoint {
+          description "uav1_side"
+          position 0 300 0
+          orientation 1 0 0 -1.5708
+        }
+        DEF uav1_back Viewpoint {
+          description "uav1_back"
+          position -300 0 0
+          orientation -0.5774 -0.5774 0.5774 2.09
+        }
+        ]
+
+    }
+    DEF uav2 Transform {
+      translation 0 0 2
+      scale 10 10 10
+      children [
+        DEF uav2_vehicle Inline {
+          url "myfish.wrl" 
+        }
+        DEF uav2_topview Viewpoint {
+          description "uav2_top"
+          position 0 0 -300
+          orientation 1 0 0 3.1416
+        }
+        DEF uav2_sideview Viewpoint {
+          description "uav2_side"
+          position 0 300 0
+          orientation 1 0 0 -1.5708
+        }
+        DEF uav2_back Viewpoint {
+          description "uav2_back"
+          position -300 0 0
+          orientation -0.5774 -0.5774 0.5774 2.09
+        }
+        ]
+
+    }
+    DEF uav3 Transform {
+      translation 0 0 3
+      scale 10 10 10
+      children [
+        DEF uav3_vehicle Inline {
+          url "myfish.wrl" 
+        }
+        DEF uav3_topview Viewpoint {
+          description "uav3_top"
+          position 0 0 -300
+          orientation 1 0 0 3.1416
+        }
+        DEF uav3_sideview Viewpoint {
+          description "uav3_side"
+          position 0 300 0
+          orientation 1 0 0 -1.5708
+        }
+        DEF uav3_back Viewpoint {
+          description "uav3_back"
+          position -300 0 0
+          orientation -0.5774 -0.5774 0.5774 2.09
+        }
+        ]
+
+    }
+    DEF uav4 Transform {
+      translation 0 0 4
+      scale 10 10 10
+      children [
+        DEF uav4_vehicle Inline {
+          url "myfish.wrl" 
+        }
+        DEF uav4_topview Viewpoint {
+          description "uav4_top"
+          position 0 0 -300
+          orientation 1 0 0 3.1416
+        }
+        DEF uav4_sideview Viewpoint {
+          description "uav4_side"
+          position 0 300 0
+          orientation 1 0 0 -1.5708
+        }
+        DEF uav4_back Viewpoint {
+          description "uav4_back"
+          position -300 0 0
+          orientation -0.5774 -0.5774 0.5774 2.09
+        }
+        ]
+
+    }
+    DEF uav5 Transform {
+      translation 0 0 5
+      scale 10 10 10
+      children [
+        DEF uav5_vehicle Inline {
+          url "myfish.wrl" 
+        }
+        DEF uav5_topview Viewpoint {
+          description "uav5_top"
+          position 0 0 -300
+          orientation 1 0 0 3.1416
+        }
+        DEF uav5_sideview Viewpoint {
+          description "uav5_side"
+          position 0 300 0
+          orientation 1 0 0 -1.5708
+        }
+        DEF uav5_back Viewpoint {
+          description "uav5_back"
+          position -300 0 0
+          orientation -0.5774 -0.5774 0.5774 2.09
+        }
+        ]
+
+    }
+    DEF obstacle1 Transform {
+      translation 3000 -200 -10500
+      children DEF obstacle1_shape Shape {
+          geometry DEF obstacle1_sphere Sphere {
+              radius 400
+            }
+          appearance DEF obstacle1_appear Appearance {
+              material DEF obstacle1_mat Material {
+                  diffuseColor 0.8 0 0
+                }
+            }
+        }
+    }
+    DEF obstacle2 Transform {
+      translation 4500 800 -10000
+      children DEF obstacle2_shape Shape {
+          geometry DEF obstacle2_sphere Sphere {
+              radius 300
+            }
+          appearance DEF obstacle2_appear Appearance {
+              material DEF obstacle2_mat Material {
+                  diffuseColor 0.8 0 0
+                }
+            }
+        }
+    }
+    DEF obstacle3 Transform {
+      translation 3500 500 -11000
+      children DEF obstacle3_shape Shape {
+          geometry DEF obstacle3_sphere Sphere {
+              radius 200
+            }
+          appearance DEF obstacle3_appear Appearance {
+              material DEF obstacle3_mat Material {
+                  diffuseColor 0.8 0 0
+                }
+            }
+        }
+    }
+    ]
+
+}
+
